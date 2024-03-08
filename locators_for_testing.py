@@ -1,0 +1,32 @@
+# Локаторы
+from selenium.webdriver.common.by import By
+
+class Test_Locators():
+    ENTER_ACCOUNT = By.XPATH, '//*[contains(@class,"button_button_size_large")]'
+    PERSONAL_CABINET = By.XPATH, "//a[@href='/account']"
+    NEW_USER = By.XPATH, "//p[contains(@class,'undefined text')]"
+    REGISTRATION_FORM = By.XPATH, "//h2[text()='Регистрация']"
+    ENTER_IN_REG_FORM = By.XPATH, "//a[@href='/login']"
+    CONSTRUCTOR = By.XPATH, "//a[@href='/']"
+    TO_REGISTRATE = By.XPATH, "//a[@href='/register']"
+    FORGOT_PASSWORD = By.XPATH, "//a[@href='/forgot-password']"
+    PASSWORD_REINSTALL = By.XPATH, "//h2[text()='Восстановление пароля']"
+    INPUT_EMAIL = By.XPATH, "//fieldset[1]/div/div/input"
+    EMAIL_PLACEHOLDER = By.XPATH, "//div[contains(@class,'input pr-6')]"
+    INPUT_PASSWORD = By.XPATH, "//fieldset[2]/div/div/input"
+    ENTER_TEXT = By.XPATH, "//h2[text()='Вход']"
+    THE_SITE_IN = By.XPATH, "//button[contains(@class,'button_button')]"
+    COLLECT_YOUR_BURGER = By.TAG_NAME, "h1"
+    THE_SITE_OUT = By.XPATH, "//button[text()='Выход']"
+    BUNS = By.XPATH, "//div[contains(@class,'tab_tab__1SPyG ')]"
+    SAUCES = By.XPATH, "(//div[contains(@class,'tab_tab')])[2]"
+    FILLINGS = By.XPATH, "(//div[contains(@class,'tab_tab')])[3]"
+    BURGER = By.CSS_SELECTOR, "html > body > div > div > header > nav > div > a > svg"
+    PERSONAL_CABINET_TEXT = By.XPATH, "//p[contains(@class,'Account_text')]"
+    LIST_OF_BUNS = By.XPATH, "// h2[text() = 'Булки']"
+    LIST_OF_SAUCES = By.XPATH, "// h2[text() = 'Соусы']"
+    LIST_OF_FILLINGS = By.XPATH, "// h2[text() = 'Начинки']"
+    REGISTRATION_NAME = By.XPATH, "//input[@name='name']"
+    REGISTRATION_EMAIL = By.XPATH, "(//input[@name='name'])[2]"
+    REGISTRATION_PASSWORD = By.NAME, "Пароль"
+    WRONG_FORMAT = By.XPATH, "//p[@class='input__error text_type_main-default']"
