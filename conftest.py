@@ -1,13 +1,12 @@
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture(scope='function')
-def correct_user_info():
-    return {'name': 'Яна', 'login': 'karpova_6125@yandex.ru', 'password': '1234567'}
-
-@pytest.fixture (scope='function')
-def incorrect_user_info():
-    return {'name': '', 'login': 'karpova_yandex_ru', 'password': '12345'}
-
-@pytest.fixture(scope='function')
-def new_user_info():
-    return {'name': 'Яна', 'login': 'karpova_6231@ya.ru', 'password': '1234567'}
+def driver():
+    options = Options()
+    options.add_argument('--window-size=1920,1080')
+    driver = webdriver.Chrome(options=options)
+    driver.get("https://stellarburgers.nomoreparties.site/")
+    yield driver
+    driver.quit()

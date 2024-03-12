@@ -1,53 +1,44 @@
 # Выполнить вход на сайт
-
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from locators_for_testing import Test_Locators
+import datatest
 
 class TestTheSiteIn():
-    @staticmethod   # Метод для ввода логина и пароля и входа на страницу
-    def fill_the_fields(driver, user):
+
+    def test_entering_through_the_personal_cabinet(self, driver):           # Вход через личный кабинет
+        # Перейти в личный кабинет
+        driver.find_element(*Test_Locators.PERSONAL_CABINET).click()
         # Дождись, что появился текст Вход
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.ENTER_TEXT)))
         # Ввести логин пользователя
-        driver.find_element(*Test_Locators.INPUT_EMAIL).send_keys(user['login'])
+        driver.find_element(*Test_Locators.INPUT_EMAIL).send_keys(datatest.correct_user_info['login'])
         # Ввести пароль пользователя
-        driver.find_element(*Test_Locators.INPUT_PASSWORD).send_keys(user['password'])
+        driver.find_element(*Test_Locators.INPUT_PASSWORD).send_keys(datatest.correct_user_info['password'])
         # Нажать на кнопку войти
         driver.find_element(*Test_Locators.THE_SITE_IN).click()
-        # Дождись перехода на основную страницу сайта и появления текста "Собери бургер"
-        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.COLLECT_YOUR_BURGER)))
+        # Дождись перехода на основную страницу сайта и появления текста "Соберите бургер"
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((Test_Locators.COLLECT_YOUR_BURGER)))
+        assert driver.find_element(*Test_Locators.COLLECT_YOUR_BURGER).text == "Соберите бургер"
 
-    def test_entering_through_the_personal_cabinet(self, correct_user_info):
-        options = Options()
-        options.add_argument('--window-size=1920,1080')
-        driver = webdriver.Chrome(options=options)
-        driver.get("https://stellarburgers.nomoreparties.site/")
-        # Перейти в личный кабинет
-        driver.find_element(*Test_Locators.PERSONAL_CABINET).click()
-        # Ввод пароля,логина и загрузка основной страницы
-        TestTheSiteIn.fill_the_fields(driver, correct_user_info)
-        driver.quit()
-
-    def test_enter_the_account(self, correct_user_info):
-        options = Options()
-        options.add_argument('--window-size=1920,1080')
-        driver = webdriver.Chrome(options=options)
-        driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_enter_the_account(self, driver):                   # Вход через "Войти в аккаунт"
         # Нажать кнопку "Войти в аккаунт"
         driver.find_element(*Test_Locators.ENTER_ACCOUNT).click()
-        # Ввод пароля,логина и загрузка основной страницы
-        TestTheSiteIn.fill_the_fields(driver, correct_user_info)
-        # Закрыть браузер
-        driver.quit()
+        # Дождись, что появился текст Вход
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.ENTER_TEXT)))
+        # Ввести логин пользователя
+        driver.find_element(*Test_Locators.INPUT_EMAIL).send_keys(datatest.correct_user_info['login'])
+        # Ввести пароль пользователя
+        driver.find_element(*Test_Locators.INPUT_PASSWORD).send_keys(datatest.correct_user_info['password'])
+        # Нажать на кнопку войти
+        driver.find_element(*Test_Locators.THE_SITE_IN).click()
+        # Дождись перехода на основную страницу сайта и появления текста "Соберите бургер"
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((Test_Locators.COLLECT_YOUR_BURGER)))
+        assert driver.find_element(*Test_Locators.COLLECT_YOUR_BURGER).text == "Соберите бургер"
 
-    def test_enter_throuth_the_registration_form(self, correct_user_info):
-        options = Options()
-        options.add_argument('--window-size=1920,1080')
-        driver = webdriver.Chrome(options=options)
-        driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_enter_throuth_the_registration_form(self, driver):             # Вход через форму регистрации
         # Нажать кнопку "Войти в аккаунт"
         driver.find_element(*Test_Locators.ENTER_ACCOUNT).click()
         # Дождись, что появилась кнопка "Зарегистрироваться"
@@ -58,16 +49,20 @@ class TestTheSiteIn():
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.ENTER_IN_REG_FORM)))
         # Нажать на кнопку "Войти"
         driver.find_element(*Test_Locators.ENTER_IN_REG_FORM).click()
-        # Ввод пароля,логина и загрузка основной страницы
-        TestTheSiteIn.fill_the_fields(driver, correct_user_info)
-        # Закрыть браузер
-        driver.quit()
+        # Дождись, что появился текст Вход
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.ENTER_TEXT)))
+        # Ввести логин пользователя
+        driver.find_element(*Test_Locators.INPUT_EMAIL).send_keys(datatest.correct_user_info['login'])
+        # Ввести пароль пользователя
+        driver.find_element(*Test_Locators.INPUT_PASSWORD).send_keys(datatest.correct_user_info['password'])
+        # Нажать на кнопку войти
+        driver.find_element(*Test_Locators.THE_SITE_IN).click()
+        # Дождись перехода на основную страницу сайта и появления текста "Соберите бургер"
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((Test_Locators.COLLECT_YOUR_BURGER)))
+        assert driver.find_element(*Test_Locators.COLLECT_YOUR_BURGER).text == "Соберите бургер"
 
-    def test_enter_throuth_forgot_password_form(self, correct_user_info):
-        options = Options()
-        options.add_argument('--window-size=1920,1080')
-        driver = webdriver.Chrome(options=options)
-        driver.get("https://stellarburgers.nomoreparties.site/")
+    def test_enter_throuth_forgot_password_form(self, driver):              # Вход через форму "Забыли пароль"
         # Нажать кнопку "Войти в аккаунт"
         driver.find_element(*Test_Locators.ENTER_ACCOUNT).click()
         # Дождись, что появилась кнопка "Восстановить пароль"
@@ -78,7 +73,15 @@ class TestTheSiteIn():
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.PASSWORD_REINSTALL)))
         # Нажать на кнопку "Войти"
         driver.find_element(*Test_Locators.ENTER_IN_REG_FORM).click()
-        # Ввод пароля,логина и загрузка основной страницы
-        TestTheSiteIn.fill_the_fields(driver, correct_user_info)
-        # Закрыть браузер
-        driver.quit()
+        # Дождись, что появился текст Вход
+        WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.ENTER_TEXT)))
+        # Ввести логин пользователя
+        driver.find_element(*Test_Locators.INPUT_EMAIL).send_keys(datatest.correct_user_info['login'])
+        # Ввести пароль пользователя
+        driver.find_element(*Test_Locators.INPUT_PASSWORD).send_keys(datatest.correct_user_info['password'])
+        # Нажать на кнопку войти
+        driver.find_element(*Test_Locators.THE_SITE_IN).click()
+        # Дождись перехода на основную страницу сайта и появления текста "Соберите бургер"
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located((Test_Locators.COLLECT_YOUR_BURGER)))
+        assert driver.find_element(*Test_Locators.COLLECT_YOUR_BURGER).text == "Соберите бургер"
