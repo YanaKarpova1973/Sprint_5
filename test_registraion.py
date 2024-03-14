@@ -1,5 +1,6 @@
 # Выполнить регистрацию
 import pytest
+import random
 from locators_for_testing import Test_Locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -7,8 +8,10 @@ import datatest
 
 class TestRegistration():
 
-    @pytest.mark.parametrize("s_name,s_login,s_password", [("Вася", "91234@ya.ru", "123456")])
-    def test_succesfull_registration_of_new_member(self, driver, s_name, s_login, s_password):   # Проверка ввода валидных данных
+    @pytest.mark.parametrize("valid_name,valid_password", [("Вася", "123456")])
+    def test_succesfull_registration_of_new_member(self, driver, valid_name, valid_password):   # Проверка ввода валидных данных
+        # Генерация логина - email
+        valid_login = 'karpova_' + str(random.randint(100, 999)) + '@ya.ru'
         # Перейти в личный кабинет
         driver.find_element(*Test_Locators.PERSONAL_CABINET).click()
         # Дождись, что появился текст "Вы — новый пользователь? Зарегистрироваться"
@@ -20,11 +23,11 @@ class TestRegistration():
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located((Test_Locators.REGISTRATION_FORM)))
         # Ввести валидное Имя нового пользователя
-        driver.find_element(*Test_Locators.REGISTRATION_NAME).send_keys(s_name)
+        driver.find_element(*Test_Locators.REGISTRATION_NAME).send_keys(valid_name)
         # Ввести валидную почту нового пользователя
-        driver.find_element(*Test_Locators.REGISTRATION_EMAIL).send_keys(s_login)
+        driver.find_element(*Test_Locators.REGISTRATION_EMAIL).send_keys(valid_login)
         # Ввести валидный пароль нового пользователя
-        driver.find_element(*Test_Locators.REGISTRATION_PASSWORD).send_keys(s_password)
+        driver.find_element(*Test_Locators.REGISTRATION_PASSWORD).send_keys(valid_password)
         # Нажать кнопку "Зарегистрироваться"
         driver.find_element(*Test_Locators.THE_SITE_IN).click()
         # Дождись, что открылась форма авторизации с заголовком "Вход"

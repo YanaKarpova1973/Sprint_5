@@ -23,7 +23,6 @@ class TestTheSiteOut():
         driver.find_element(*Test_Locators.PERSONAL_CABINET).click()
         # Дождись, что появился текст "В этом разделе вы можете изменить свои персональные данные"
         WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((Test_Locators.PERSONAL_CABINET_TEXT)))
-        #time.sleep(5)
         # Нажать кнопку "Выход"
         driver.find_element(*Test_Locators.THE_SITE_OUT).click()
         # Дождаться отображения текста Вход на странице
